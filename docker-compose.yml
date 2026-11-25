@@ -1,0 +1,35 @@
+services:
+  techdev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: techdev-page:latest
+    container_name: techdev-page
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8000}:8000"
+    environment:
+      TECHDEV_PASSWORD: ${TECHDEV_PASSWORD:-cambiar-esta-clave}
+      TECHDEV_SESSION_SECRET: ${TECHDEV_SESSION_SECRET:-}
+      APP_BASE_URL: ${APP_BASE_URL:-http://localhost:8000}
+      TECHDEV_DB_PATH: /app/data/app.db
+      TECHDEV_UPLOAD_DIR: /app/data/uploads
+    volumes:
+      # SQLite + imágenes subidas: sobreviven a reinicios y rebuilds
+      - techdev_data:/app/data
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import sys,urllib.request; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=4).status == 200 else 1)",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+volumes:
+  techdev_data:
+    name: techdev_data

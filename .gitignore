@@ -1,0 +1,26 @@
+# Entorno / Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Datos locales (SQLite + imágenes subidas)
+data/
+*.db
+*.db-shm
+*.db-wal
+
+# Secretos
+.env
+.env.local
+
+# Artefactos de verificación local
+artifacts/
+
+# Docker
+.docker/
+
+# Editores / sistema
+.vscode/
+.idea/
+.DS_Store

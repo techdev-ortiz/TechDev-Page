@@ -1,0 +1,344 @@
+{% set wa_attrs %}href="{{ wa_link }}" target="_blank" rel="noopener" data-wa{% endset %}
+<!doctype html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ c['meta.title'] }}</title>
+  <meta name="description" content="{{ c['meta.description'] }}">
+  <meta name="keywords" content="{{ c['meta.keywords'] }}">
+  <meta name="author" content="{{ c['site.name'] }}">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#05070f">
+  <link rel="canonical" href="{{ base_url }}/{% if lang == 'en' %}?lang=en{% endif %}">
+  <link rel="alternate" hreflang="es" href="{{ base_url }}/?lang=es">
+  <link rel="alternate" hreflang="en" href="{{ base_url }}/?lang=en">
+  <link rel="alternate" hreflang="x-default" href="{{ base_url }}/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="{{ 'en_US' if lang == 'en' else 'es_ES' }}">
+  <meta property="og:site_name" content="{{ c['site.name'] }}">
+  <meta property="og:title" content="{{ c['meta.title'] }}">
+  <meta property="og:description" content="{{ c['meta.description'] }}">
+  <meta property="og:url" content="{{ base_url }}/{% if lang == 'en' %}?lang=en{% endif %}">
+  <meta property="og:image" content="{{ base_url }}{{ c['meta.og_image'] }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ c['meta.title'] }}">
+  <meta name="twitter:description" content="{{ c['meta.description'] }}">
+  <meta name="twitter:image" content="{{ base_url }}{{ c['meta.og_image'] }}">
+
+  <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" as="image" href="{{ c['hero.image'] }}">
+  <link rel="stylesheet" href="/static/css/main.css">
+  <noscript>
+    <style>
+      .loader { display: none !important; }
+      body.is-loading { overflow: auto; }
+      .reveal { opacity: 1; transform: none; }
+    </style>
+  </noscript>
+  <script type="application/ld+json">
+  {{ {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": c['site.name'],
+    "description": c['meta.description'],
+    "url": base_url ~ "/",
+    "image": base_url ~ c['meta.og_image'],
+    "areaServed": "Worldwide",
+    "serviceType": [c['services.s1.title'], c['services.s2.title'], c['services.s3.title'], c['services.s4.title'], c['services.s5.title'], c['services.s6.title'], c['services.s7.title']]
+  } | tojson }}
+  </script>
+</head>
+<body class="is-loading" data-lang="{{ lang }}" data-wa-number="{{ c['contact.whatsapp_number'] }}" data-wa-message="{{ c['contact.whatsapp_message'] }}">
+  <div class="loader" id="loader" role="status" aria-live="polite">
+    <div class="loader__mark">
+      <span class="loader__ring"></span>
+      <span class="loader__ring loader__ring--delayed"></span>
+      <span class="loader__logo">&lt;/&gt;</span>
+    </div>
+    <p class="loader__brand">{{ c['site.name'] }}</p>
+    <p class="loader__text">{{ c['loader.text'] }}<span class="loader__dots"><i></i><i></i><i></i></span></p>
+  </div>
+
+  <a class="skip-link" href="#inicio" data-i18n="ui.skip">{{ c['ui.skip'] }}</a>
+  <div class="backdrop" aria-hidden="true">
+    <span class="orb orb--1"></span>
+    <span class="orb orb--2"></span>
+    <span class="orb orb--3"></span>
+    <span class="grid-lines"></span>
+  </div>
+
+  <header class="site-header" id="site-header">
+    <div class="container header__inner">
+      <a class="brand" href="#inicio" data-nav>
+        <span class="brand__mark" aria-hidden="true">&lt;/&gt;</span>
+        <span class="brand__text">
+          <strong>{{ c['site.name'] }}</strong>
+          <small>{{ c['site.tagline'] }}</small>
+        </span>
+      </a>
+
+      <nav class="nav" id="primary-nav" aria-label="Navegación principal">
+        <a class="nav__link is-active" href="#inicio" data-nav data-section="inicio" data-i18n="nav.home">{{ c['nav.home'] }}</a>
+        <a class="nav__link" href="#servicios" data-nav data-section="servicios" data-i18n="nav.services">{{ c['nav.services'] }}</a>
+        <a class="nav__link" href="#proyectos" data-nav data-section="proyectos" data-i18n="nav.projects">{{ c['nav.projects'] }}</a>
+        <a class="nav__link" href="#nosotros" data-nav data-section="nosotros" data-i18n="nav.about">{{ c['nav.about'] }}</a>
+        <a class="nav__link" href="#contacto" data-nav data-section="contacto" data-i18n="nav.contact">{{ c['nav.contact'] }}</a>
+        <div class="nav__actions">
+          <button class="lang-switch" type="button" data-lang-switch aria-label="{{ c['ui.lang_switch'] }}">
+            <span data-lang-label>{{ c['ui.lang_switch'] }}</span>
+          </button>
+          <a class="btn btn--primary btn--small" {{ wa_attrs }} data-i18n="contact.whatsapp_cta">{{ c['contact.whatsapp_cta'] }}</a>
+        </div>
+      </nav>
+
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="{{ c['ui.menu'] }}">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============================================================ INICIO -->
+    <section class="section hero" id="inicio" data-observe>
+      <div class="container hero__grid">
+        <div class="hero__content">
+          <p class="badge reveal"><span class="badge__dot"></span><span data-i18n="hero.badge">{{ c['hero.badge'] }}</span></p>
+          <h1 class="hero__title reveal">
+            <span data-i18n="hero.title">{{ c['hero.title'] }}</span>
+            <span class="text-gradient" data-i18n="hero.highlight">{{ c['hero.highlight'] }}</span>
+          </h1>
+          <p class="hero__subtitle reveal" data-i18n="hero.subtitle">{{ c['hero.subtitle'] }}</p>
+          <div class="hero__actions reveal">
+            <a class="btn btn--primary" href="#servicios" data-nav data-section="servicios">
+              <span data-i18n="hero.primary_cta">{{ c['hero.primary_cta'] }}</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="btn btn--ghost" {{ wa_attrs }} data-i18n="hero.secondary_cta">{{ c['hero.secondary_cta'] }}</a>
+          </div>
+          <dl class="hero__stats reveal">
+            {% for i in [1, 2, 3, 4] %}
+            <div class="stat">
+              <dt class="stat__value" data-i18n="hero.stat{{ i }}_value">{{ c['hero.stat' ~ i ~ '_value'] }}</dt>
+              <dd class="stat__label" data-i18n="hero.stat{{ i }}_label">{{ c['hero.stat' ~ i ~ '_label'] }}</dd>
+            </div>
+            {% endfor %}
+          </dl>
+        </div>
+
+        <div class="hero__visual reveal">
+          <div class="hero__glow" aria-hidden="true"></div>
+          <figure class="hero__frame glass">
+            <img src="{{ c['hero.image'] }}" alt="{{ c['hero.image_alt'] }}" width="1392" height="752" fetchpriority="high">
+            <figcaption class="hero__chip glass">
+              <span class="hero__chip-value">{{ c['hero.stat1_value'] }}</span>
+              <span class="hero__chip-label">{{ c['hero.stat1_label'] }}</span>
+            </figcaption>
+          </figure>
+          <div class="hero__float glass" aria-hidden="true">
+            <span class="hero__float-dot"></span>
+            <span class="hero__float-line"></span>
+            <span class="hero__float-line hero__float-line--short"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================== SERVICIOS -->
+    <section class="section" id="servicios" data-observe>
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="eyebrow" data-i18n="services.eyebrow">{{ c['services.eyebrow'] }}</span>
+          <h2 class="section-title" data-i18n="services.title">{{ c['services.title'] }}</h2>
+          <p class="section-sub" data-i18n="services.subtitle">{{ c['services.subtitle'] }}</p>
+        </header>
+
+        <div class="services-grid">
+          {% for i in range(1, 8) %}
+          <article class="service-card glass reveal">
+            <span class="service-card__index">0{{ i }}</span>
+            <span class="service-card__icon" aria-hidden="true" data-i18n="services.s{{ i }}.icon">{{ c['services.s' ~ i ~ '.icon'] }}</span>
+            <h3 class="service-card__title" data-i18n="services.s{{ i }}.title">{{ c['services.s' ~ i ~ '.title'] }}</h3>
+            <p class="service-card__text" data-i18n="services.s{{ i }}.desc">{{ c['services.s' ~ i ~ '.desc'] }}</p>
+            <span class="service-card__sheen" aria-hidden="true"></span>
+          </article>
+          {% endfor %}
+        </div>
+
+        <div class="cta-band glass reveal">
+          <div>
+            <h3 data-i18n="services.cta_title">{{ c['services.cta_title'] }}</h3>
+            <p data-i18n="services.cta_text">{{ c['services.cta_text'] }}</p>
+          </div>
+          <a class="btn btn--primary" {{ wa_attrs }} data-i18n="services.cta_button">{{ c['services.cta_button'] }}</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================== PROYECTOS -->
+    <section class="section" id="proyectos" data-observe>
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="eyebrow" data-i18n="projects.eyebrow">{{ c['projects.eyebrow'] }}</span>
+          <h2 class="section-title" data-i18n="projects.title">{{ c['projects.title'] }}</h2>
+          <p class="section-sub" data-i18n="projects.subtitle">{{ c['projects.subtitle'] }}</p>
+        </header>
+
+        {% if projects %}
+        <div class="projects-grid">
+          {% for project in projects %}
+          <article class="project-card glass reveal" data-project="{{ project.id }}">
+            <div class="project-card__media">
+              {% if project.image_url %}
+              <img src="{{ project.image_url }}" alt="{{ project.title }}" loading="lazy">
+              {% else %}
+              <div class="project-card__placeholder" aria-hidden="true">
+                <span>{{ project.title[:2] }}</span>
+              </div>
+              {% endif %}
+            </div>
+            <div class="project-card__body">
+              <h3 class="project-card__title" data-project-title="{{ project.id }}">{{ project.title }}</h3>
+              <p class="project-card__text" data-project-text="{{ project.id }}">{{ project.description }}</p>
+              {% if project.tags %}
+              <ul class="tags">
+                {% for tag in project.tags %}<li>{{ tag }}</li>{% endfor %}
+              </ul>
+              {% endif %}
+              {% if project.link_url %}
+              <a class="project-card__link" href="{{ project.link_url }}" target="_blank" rel="noopener" data-project-link="{{ project.id }}" data-project-click="{{ project.title }}">
+                <span data-i18n="projects.link_label">{{ c['projects.link_label'] }}</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+              </a>
+              {% endif %}
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+        {% else %}
+        <p class="empty-state glass reveal" data-i18n="projects.empty">{{ c['projects.empty'] }}</p>
+        {% endif %}
+      </div>
+    </section>
+
+    <!-- ============================================================= NOSOTROS -->
+    <section class="section" id="nosotros" data-observe>
+      <div class="container about">
+        <div class="about__media reveal">
+          <figure class="about__frame glass">
+            <img src="{{ c['about.image'] }}" alt="{{ c['about.image_alt'] }}" loading="lazy" width="1184" height="880">
+          </figure>
+          <div class="about__badge glass">
+            <strong>{{ c['about.badge_value'] }}</strong>
+            <span>{{ c['about.badge_label'] }}</span>
+          </div>
+        </div>
+
+        <div class="about__content">
+          <header class="section-head section-head--left reveal">
+            <span class="eyebrow" data-i18n="about.eyebrow">{{ c['about.eyebrow'] }}</span>
+            <h2 class="section-title" data-i18n="about.title">{{ c['about.title'] }}</h2>
+          </header>
+          <p class="about__text reveal" data-i18n="about.text1">{{ c['about.text1'] }}</p>
+          <p class="about__text reveal" data-i18n="about.text2">{{ c['about.text2'] }}</p>
+          <ul class="about__points">
+            {% for i in [1, 2, 3] %}
+            <li class="about__point reveal">
+              <span class="about__check" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg>
+              </span>
+              <div>
+                <strong data-i18n="about.p{{ i }}_title">{{ c['about.p' ~ i ~ '_title'] }}</strong>
+                <p data-i18n="about.p{{ i }}_text">{{ c['about.p' ~ i ~ '_text'] }}</p>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= CONTACTO -->
+    <section class="section" id="contacto" data-observe>
+      <div class="container">
+        <div class="contact glass reveal">
+          <div class="contact__content">
+            <span class="eyebrow" data-i18n="contact.eyebrow">{{ c['contact.eyebrow'] }}</span>
+            <h2 class="section-title" data-i18n="contact.title">{{ c['contact.title'] }}</h2>
+            <p class="section-sub" data-i18n="contact.subtitle">{{ c['contact.subtitle'] }}</p>
+            <a class="btn btn--whatsapp" {{ wa_attrs }}>
+              <svg class="icon-wa" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.3 4.8 4.9-1.3A9.9 9.9 0 1 0 12.04 2Zm5.8 14.1c-.24.68-1.4 1.3-1.93 1.35-.53.06-1.02.24-3.45-.72-2.9-1.15-4.72-4.14-4.86-4.33-.14-.19-1.15-1.55-1.15-2.95 0-1.4.73-2.09 1-2.38.24-.27.55-.34.73-.34l.53.01c.17 0 .4-.06.62.48l.85 2.05c.07.15.12.32.02.5l-.35.5-.5.55c-.17.17-.34.35-.15.68.19.32.84 1.39 1.8 2.25 1.24 1.1 2.27 1.44 2.6 1.6.32.17.5.14.7-.08l.9-1.05c.22-.27.4-.2.68-.12l1.93.9c.28.13.47.2.54.32.07.12.07.7-.16 1.36Z"/></svg>
+              <span data-i18n="contact.whatsapp_cta">{{ c['contact.whatsapp_cta'] }}</span>
+            </a>
+            <p class="contact__hint" data-i18n="contact.whatsapp_hint">{{ c['contact.whatsapp_hint'] }}</p>
+          </div>
+
+          <ul class="contact__cards">
+            {% for i in [1, 2, 3] %}
+            <li class="contact__card">
+              <span class="contact__card-icon" aria-hidden="true">
+                {% if i == 1 %}
+                <svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-8 8H7l-4 2 1.2-4.2A8 8 0 1 1 21 12Z"/><path d="M8.5 11h7M8.5 14.5h4"/></svg>
+                {% elif i == 2 %}
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>
+                {% else %}
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.4 2.3 3.6 5.2 3.6 8.5S14.4 18.2 12 20.5C9.6 18.2 8.4 15.3 8.4 12S9.6 5.8 12 3.5Z"/></svg>
+                {% endif %}
+              </span>
+              <strong data-i18n="contact.card{{ i }}_title">{{ c['contact.card' ~ i ~ '_title'] }}</strong>
+              <p data-i18n="contact.card{{ i }}_text">{{ c['contact.card' ~ i ~ '_text'] }}</p>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================================================================ FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <a class="brand" href="#inicio" data-nav>
+          <span class="brand__mark" aria-hidden="true">&lt;/&gt;</span>
+          <span class="brand__text"><strong>{{ c['site.name'] }}</strong></span>
+        </a>
+        <p data-i18n="footer.about">{{ c['footer.about'] }}</p>
+      </div>
+
+      <nav class="footer__col" aria-label="Navegación del pie">
+        <h3 data-i18n="footer.nav_title">{{ c['footer.nav_title'] }}</h3>
+        <a href="#servicios" data-nav data-section="servicios" data-i18n="nav.services">{{ c['nav.services'] }}</a>
+        <a href="#proyectos" data-nav data-section="proyectos" data-i18n="nav.projects">{{ c['nav.projects'] }}</a>
+        <a href="#nosotros" data-nav data-section="nosotros" data-i18n="nav.about">{{ c['nav.about'] }}</a>
+        <a href="#contacto" data-nav data-section="contacto" data-i18n="nav.contact">{{ c['nav.contact'] }}</a>
+      </nav>
+
+      <div class="footer__col">
+        <h3 data-i18n="footer.contact_title">{{ c['footer.contact_title'] }}</h3>
+        <a {{ wa_attrs }} data-i18n="contact.whatsapp_cta">{{ c['contact.whatsapp_cta'] }}</a>
+        <a href="#contacto" data-nav data-section="contacto" data-i18n="contact.card1_title">{{ c['contact.card1_title'] }}</a>
+      </div>
+
+      <div class="footer__col footer__col--meta">
+        <h3>{{ c['site.tagline'] }}</h3>
+        <p data-i18n="footer.built">{{ c['footer.built'] }}</p>
+        <a class="footer__admin" href="/admin" rel="nofollow">/admin</a>
+      </div>
+    </div>
+
+    <div class="container footer__bottom">
+      <p>© {{ year }} {{ c['site.name'] }}. <span data-i18n="footer.rights">{{ c['footer.rights'] }}</span></p>
+      <p class="footer__muted" data-i18n="site.tagline">{{ c['site.tagline'] }}</p>
+    </div>
+  </footer>
+
+  <a class="whatsapp-fab" {{ wa_attrs }} aria-label="{{ c['contact.whatsapp_cta'] }}">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.3 4.8 4.9-1.3A9.9 9.9 0 1 0 12.04 2Zm5.8 14.1c-.24.68-1.4 1.3-1.93 1.35-.53.06-1.02.24-3.45-.72-2.9-1.15-4.72-4.14-4.86-4.33-.14-.19-1.15-1.55-1.15-2.95 0-1.4.73-2.09 1-2.38.24-.27.55-.34.73-.34l.53.01c.17 0 .4-.06.62.48l.85 2.05c.07.15.12.32.02.5l-.35.5-.5.55c-.17.17-.34.35-.15.68.19.32.84 1.39 1.8 2.25 1.24 1.1 2.27 1.44 2.6 1.6.32.17.5.14.7-.08l.9-1.05c.22-.27.4-.2.68-.12l1.93.9c.28.13.47.2.54.32.07.12.07.7-.16 1.36Z"/></svg>
+  </a>
+
+  <div class="toast" id="site-toast" role="status" aria-live="polite"></div>
+  <script src="/static/js/main.js" defer></script>
+</body>
+</html>

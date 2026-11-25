@@ -1,0 +1,72 @@
+{% extends "admin/base.html" %}
+{% block title %}Acceso · Panel{% endblock %}
+{% block body_class %}admin-body admin-body--login{% endblock %}
+
+{% block content %}
+<main class="login">
+  <section class="login__card admin-card">
+    <div class="login__brand">
+      <span class="admin-brand__mark" aria-hidden="true">&lt;/&gt;</span>
+      <div>
+        <strong>TechDev</strong>
+        <small>Panel de administración</small>
+      </div>
+    </div>
+
+    <h1 class="login__title">Inicia sesión</h1>
+    <p class="login__subtitle">
+      Acceso privado. Introduce la contraseña de administrador definida en
+      <code>TECHDEV_PASSWORD</code>.
+    </p>
+
+    {% if error %}
+    <p class="alert alert--error">
+      {% if error == "locked" %}
+      Demasiados intentos fallidos. Espera unos minutos e inténtalo de nuevo.
+      {% else %}
+      Contraseña incorrecta. Vuelve a intentarlo.
+      {% endif %}
+    </p>
+    {% endif %}
+
+    {% if not admin_ready %}
+    <p class="alert alert--error">
+      <strong>Panel bloqueado:</strong> define la variable de entorno
+      <code>TECHDEV_PASSWORD</code> y reinicia el servicio.
+    </p>
+    {% elif default_password %}
+    <p class="alert alert--warning">
+      Estás usando la contraseña de ejemplo. Cámbiala antes de publicar el sitio.
+    </p>
+    {% endif %}
+
+    <form class="login__form" method="post" action="/admin/login" autocomplete="off">
+      <label class="field__label" for="password">Contraseña</label>
+      <div class="login__input">
+        <input id="password" name="password" type="password" required autofocus
+               placeholder="••••••••••" autocomplete="current-password" {% if not admin_ready %}disabled{% endif %}>
+        <button type="button" class="login__reveal" data-toggle-password aria-label="Mostrar contraseña">Ver</button>
+      </div>
+      <button class="admin-btn admin-btn--primary admin-btn--block" type="submit" {% if not admin_ready %}disabled{% endif %}>
+        Entrar al panel
+      </button>
+    </form>
+
+    <p class="login__foot"><a href="/">← Volver al sitio</a></p>
+  </section>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  (() => {
+    const button = document.querySelector("[data-toggle-password]");
+    const input = document.getElementById("password");
+    button?.addEventListener("click", () => {
+      const show = input.type === "password";
+      input.type = show ? "text" : "password";
+      button.textContent = show ? "Ocultar" : "Ver";
+    });
+  })();
+</script>
+{% endblock %}

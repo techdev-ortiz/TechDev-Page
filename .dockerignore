@@ -1,0 +1,14 @@
+.git
+.gitignore
+.venv
+__pycache__
+*.pyc
+data
+*.db
+*.db-shm
+*.db-wal
+.env
+.env.local
+.vscode
+.idea
+.DS_Store
